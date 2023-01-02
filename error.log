@@ -1,0 +1,3 @@
+Error!: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ebook_shelf.FOO' doesn't exist
+Error!: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ebook_shelf.FOO' doesn't exist
+Error on line 8SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ebook_shelf.FOO' doesn't exist

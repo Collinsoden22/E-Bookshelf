@@ -2,11 +2,11 @@
 session_start();
 include("../classes/user.php");
 
-if($_SESSION['role'] == 'ADMIN'){
+if ($_SESSION['role'] == 'ADMIN') {
     $books = ''; //Get all books
-}elseif($_SESSION['role'] == 'USER'){
+} elseif ($_SESSION['role'] == 'USER') {
     header("location: ../dashboard/?err=$err");
-}else{
+} else {
     $err = "Please login again to continue";
     session_destroy();
     header("location: ../login/?err=$err");
@@ -103,11 +103,10 @@ if($_SESSION['role'] == 'ADMIN'){
                 </div>
             </div>
 
-            <div class="row text-center col-md-12 ml-1 mr-1 mt-10">
+            <div class="row text-center col-md-12 ml-1 mr-1 mt-12">
                 <!-- TODO: Loop here -->
                 <div class="col-md-4">
                     <div class="step">
-
                         <a href="#">
                             <div class="wrap-icon icon-1 mt-4">
                                 <img src="../assets/img/Ifelolar.jpg" alt="" width="200px">

@@ -113,7 +113,7 @@ if ($_SESSION['role'] == 'ADMIN') {
                                     <option value="Dystopian">Dystopian </option>
                                     <option value="Adventure">Adventure</option>
                                     <option value="Romance">Romance</option>
-                                    <option value="Detective & Mystery">Detective & Mystery</option>
+                                    <option value="Detective and Mystery">Detective and Mystery</option>
                                     <option value="Horrow">Horror</option>
                                     <option value="Thriller">Thriller</option>
                                     <option value="Historical Fiction">Historical Fiction</option>
@@ -124,7 +124,8 @@ if ($_SESSION['role'] == 'ADMIN') {
                                     <option value="Biography">Biography</option>
                                     <option value="Cooking">Cooking </option>
                                     <option value="Art & Photography">Art & Photography</option>
-                                    <option value="Self-Help/Personal Development">Self-Help/Personal Development</option>
+                                    <option value="Personal Development">Personal Development</option>
+                                    <option value="Self Help">Self-Help</option>
                                     <option value="Motivational/Inspirational">Motivational/Inspirational</option>
                                     <option value="Health & Fitness">Health & Fitness</option>
                                     <option value="Crafts/Hobies & Home">History</option>

@@ -1,31 +1,8 @@
 <?php
+require_once("connect_db.php");
 
-class User
+class User extends Connect
 {
-
-    public $connect;
-    public function __Construct()
-    {
-        $host = "localhost";
-        $db_name = "ebook_shelf";
-        $user = "root";
-        $pass = "";
-
-        try {
-            $this->connect = new PDO("mysql:host=$host;dbname=$db_name", $user, $pass);
-
-            // Make all DB errors throw exceptionas
-            $this->connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (PDOException $e) {
-            $err =  "Error on line " . $e->getLine() . " in " . $e->getFile() . ": " . $e->getMessage() . "\n";
-            // Write error to file
-            // echo $err;
-            error_log($err, 3, "../error.log");
-            // echo "There was an error completing your request";
-            die();
-        }
-        return TRUE;
-    }
 
 
     public function Log_DBerror_msg($message, $code, $file, $line)
@@ -116,7 +93,6 @@ class User
             }
         }
     }
-
     public function getUserRole($username)
     {
         try {
@@ -138,7 +114,86 @@ class User
         if ($userRole)
             return $userRole['role'];
     }
+    public function getAllBooks()
+    {
+        try {
+            $sql = "SELECT title,author,date_published,description,posted_by,date_uploaded,new_name,book_cover,price,category FROM books ORDER BY date_uploaded ASC LIMIT 12";
+            //prepare query
+            $q = $this->connect->prepare($sql);
+            //execute query
+            $q->execute();
+            // Get username
+            $allBooks = $q->fetchAll();
+        } catch (PDOException $e) {
+            $this->Log_DBerror_msg($e->getMessage(), $e->getCode(), $e->getFile(), $e->getLine());
+            $err = 'An error might have occurred in the System';
+            header("location: http://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"] . "/?err=$err");
+            exit();
+        }
+        if ($allBooks)
+            return $allBooks;
+    }
 
+    public function searchBooks($searchWord)
+    {
+        try {
+            $sql = "SELECT title,author,date_published,description,posted_by,date_uploaded,new_name,book_cover,price,category FROM books WHERE title LIKE '%' :searchKey '%' ORDER BY title ASC";
+            //prepare query
+            $q = $this->connect->prepare($sql);
+            //execute query
+            $q->execute(array(':searchKey' => $searchWord));
+            // Get username
+            $allBooks = $q->fetchAll();
+        } catch (PDOException $e) {
+            $this->Log_DBerror_msg($e->getMessage(), $e->getCode(), $e->getFile(), $e->getLine());
+            $err = 'An error might have occurred in the System';
+            header("location: http://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"] . "/?err=$err");
+            exit();
+        }
+        if ($allBooks)
+            return $allBooks;
+    }
+
+    public function searchBookCategory($category)
+    {
+        try {
+            $sql = "SELECT title,author,date_published,description,posted_by,date_uploaded,new_name,book_cover,price,category FROM books WHERE category = :searchKey ORDER BY title ASC";
+            //prepare query
+            $q = $this->connect->prepare($sql);
+            //execute query
+            $q->execute(array(':searchKey' => $category));
+            // Get username
+            $allBooks = $q->fetchAll();
+        } catch (PDOException $e) {
+            $this->Log_DBerror_msg($e->getMessage(), $e->getCode(), $e->getFile(), $e->getLine());
+            $err = 'An error might have occurred in the System';
+            header("location: http://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"] . "/?err=$err");
+            exit();
+        }
+        if ($allBooks)
+            return $allBooks;
+    }
+
+    public function getHighestReadBooks()
+    {
+        try {
+            // TODO: Make this pick only more read books
+            $sql = "SELECT title,author,date_published,description,posted_by,date_uploaded,new_name,book_cover,price,category FROM books ORDER BY date_uploaded ASC LIMIT 1";
+            //prepare query
+            $q = $this->connect->prepare($sql);
+            //execute query
+            $q->execute();
+            // Get username
+            $mostRead = $q->fetch();
+        } catch (PDOException $e) {
+            $this->Log_DBerror_msg($e->getMessage(), $e->getCode(), $e->getFile(), $e->getLine());
+            $err = 'An error might have occurred in the System';
+            header("location: http://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"] . "/?err=$err");
+            exit();
+        }
+        if ($mostRead)
+            return $mostRead;
+    }
 
     public function logout($username)
     {

@@ -1,6 +1,6 @@
 <p align="center">
   <a href="" rel="noopener">
- <img width=200px height=200px src="assets/img/ebookshelf.png" alt="E-Bookshelf Home Page"></a>
+ <img width=100% height=auto src="assets/img/ebookshelf.png" alt="E-Bookshelf Home Page"></a>
 </p>
 
 <h3 align="center">E-Bookshelf</h3>
@@ -13,7 +13,6 @@
 
 </div>
 
----
 
 <p align="center"> E-Bookshelf is an electronic bookshelf for online readers, it is a free software to get all kinds of books available.
     <br> 

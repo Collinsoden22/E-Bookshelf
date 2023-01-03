@@ -8,7 +8,7 @@
 <div align="center">
 
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![GitHub Issues](https://img.shields.io/github/issues/Collinsoden22/)](https://github.com/Collinsoden22/E-Bookshelf/issues)
+[![GitHub Issues](https://img.shields.io/github/issues/Collinsoden22/E-Bookshelf.svg)](https://github.com/Collinsoden22/E-Bookshelf/issues)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/collinsoden22/E-Bookshelf.svg)](https://github.com/collinsoden22/E-Bookshelf/pulls)
 
 </div>

@@ -1,6 +1,9 @@
 <?php
+
 session_start();
+
 $searchFormToken = mt_rand() . mt_rand() . mt_rand();
+
 $_SESSION['searchValueFormToken'] = $searchFormToken;
 if ($_SESSION['role'] == 'ADMIN') {
     header("location: ../publisher/?err=$err");
@@ -27,7 +30,6 @@ if ($_SESSION['role'] == 'ADMIN') {
         <title>E-BookShelf</title>
         <meta content="" name="description">
         <meta content="" name="keywords">
-
         <!-- Favicons -->
         <link href="../assets/img/favicon.png" rel="icon">
         <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -171,168 +173,81 @@ if ($_SESSION['role'] == 'ADMIN') {
                 </div>
 
             </section>
+        </main>
 
-            <!-- ======= Book of the Week Section ======= -->
-            <section class="section border-top border-bottom">
-                <div class="container">
-                    <div class="row justify-content-center text-center mb-5">
-                        <div class="col-md-6">
-                            <h2 class="section-heading">Book of the Week</h2>
-                            <!-- TODO: This will show most read books -->
-                        </div>
+        <!-- ======= Book of the Week Section ======= -->
+        <section class="section border-top border-bottom">
+            <div class="container">
+                <div class="row justify-content-center text-center mb-5">
+                    <div class="col-md-6">
+                        <h2 class="section-heading">Book of the Week</h2>
+                        <!-- TODO: This will show most read books -->
                     </div>
-                    <div class="row justify-content-center text-center">
-                        <div class="col-md-7">
+                </div>
+                <div class="row justify-content-center text-center">
+                    <div class="col-md-7">
 
-                            <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <div class="review text-center">
-                                            <p class="stars">
-                                                <span class="fa fa-star-fill"></span>
-                                                <span class="fa fa-star-fill"></span>
-                                                <span class="fa fa-star-fill"></span>
-                                                <span class="fa fa-star-fill"></span>
-                                                <span class="fa fa-star-fill muted"></span>
-                                            </p>
-                                            <h3><?= $bookOfTheWeek['title'] ?></h3>
-                                            <blockquote>
-                                                <p><?= html_entity_decode($bookOfTheWeek['description'], ENT_QUOTES, 'UTF-8'); ?> </p>
-                                            </blockquote>
-                                            <p class="review-user">
-                                                <img src="../upload/cover/<?= $bookOfTheWeek['book_cover'] ?>" alt="<?= $bookOfTheWeek['title'] ?> Cover image" class="img-fluid rounded-circle mb-3">
-                                                <span class="d-block">
-                                                    <span class="text-black"><?= $bookOfTheWeek['author'] ?></span> &mdash; Posted by <?= $bookOfTheWeek['posted_by'] ?>
-                                                </span>
-                                            </p>
+                        <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <div class="review text-center">
+                                        <p class="stars">
+                                            <span class="fa fa-star-fill"></span>
+                                            <span class="fa fa-star-fill"></span>
+                                            <span class="fa fa-star-fill"></span>
+                                            <span class="fa fa-star-fill"></span>
+                                            <span class="fa fa-star-fill muted"></span>
+                                        </p>
+                                        <h3><?= $bookOfTheWeek['title'] ?></h3>
+                                        <blockquote>
+                                            <p><?= html_entity_decode($bookOfTheWeek['description'], ENT_QUOTES, 'UTF-8'); ?> </p>
+                                        </blockquote>
+                                        <p class="review-user">
+                                            <img src="../upload/cover/<?= $bookOfTheWeek['book_cover'] ?>" alt="<?= $bookOfTheWeek['title'] ?> Cover image" class="img-fluid rounded mb-3">
+                                            <span class="d-block">
+                                                <span class="text-black"><?= $bookOfTheWeek['author'] ?></span> &mdash; Posted by <?= $bookOfTheWeek['posted_by'] ?>
+                                            </span>
+                                        </p>
 
-                                        </div>
                                     </div>
-
-                                    <!-- New here -->
                                 </div>
-                                <div class="swiper-pagination"></div>
+
+                                <!-- New here -->
                             </div>
+                            <div class="swiper-pagination"></div>
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <section class="section cta-section">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-md-6 me-auto text-center text-md-start mb-5 mb-md-0">
-                            <h2>E-Bookshelf mobile app</h2>
-                        </div>
-                        <div class="col-md-5 text-center text-md-end">
-                            <p><a href="#" class="btn d-inline-flex align-items-center"><i class="bx bxl-apple"></i>
-                                    <span>Coming soon</span></a>
-                                <a href="#" class="btn d-inline-flex align-items-center"><i class="bx bxl-play-store"></i>
-                                    <span>Coming soon</span></a>
-                            </p>
-                        </div>
+        <section class="section cta-section">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6 me-auto text-center text-md-start mb-5 mb-md-0">
+                        <h2>E-Bookshelf mobile app</h2>
+                    </div>
+                    <div class="col-md-5 text-center text-md-end">
+                        <p><a href="#" class="btn d-inline-flex align-items-center"><i class="bx bxl-apple"></i>
+                                <span>Coming soon</span></a>
+                            <a href="#" class="btn d-inline-flex align-items-center"><i class="bx bxl-play-store"></i>
+                                <span>Coming soon</span></a>
+                        </p>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
+        <?php include("../sections/about.php"); ?>
+        <!-- Vendor JS Files -->
+        <script src="../assets/vendor/aos/aos.js"></script>
+        <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
+        <script src="../assets/vendor/php-email-form/validate.js"></script>
 
-            <footer class="footer" role="contentinfo">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 mb-8 mb-md-0">
-                            <h3>About E-Bookshelf</h3>
-                            <p>E-Bookshelf (Electronic Bookshelf) is an online book store
-                                where users can access all types of
-                                E-Books at the comfort of their home, without restriction to
-                                location.</p>
-                        </div>
-                        <div class="col-md-4 ms-auto">
-                            <div class="row site-section pt-0">
-                                <div class="col-md-4 mb-4 mb-md-0">
-                                    <h3>Navigation</h3>
-                                    <ul class="list-unstyled">
-                                        <li><a href="#">Support</a></li>
-                                        <li><a href="#">Privacy Policy</a></li>
-                                        <li><a href="#">Contact</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </footer>
-
-            <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="fa fa-arrow-up-short"></i></a>
-
-            <!-- Vendor JS Files -->
-            <script src="../assets/vendor/aos/aos.js"></script>
-            <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-            <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
-            <script src="../assets/vendor/php-email-form/validate.js"></script>
-
-            <!-- Template Main JS File -->
-            <script src="../assets/js/main.js"></script>
-            <script src="../assets/js/jquery.min.js"></script>
-
-            <script>
-            function searchBook(e) {
-                var searchFormToken = document.getElementById("searchFormToken").value;
-                var displayPage = document.getElementById("bookPage");
-                var formData = 'searchValue=' + e.value + '&searchBoxForm=' + searchFormToken;
-                // displayPage.innerText = '<div class="col-md-8"> <div class="step"><p class="text-center"> Searching... </p></div></div>';
-                $.ajax({
-                    type: 'POST',
-                    url: '../process/index.php',
-                    data: formData,
-                    cache: false,
-                    success: function(data) {
-                        if (data != '') {
-                            for (i = 0; i < data.length; i++) {
-                                var booksResult = "<div class='col-md-4'>" +
-                                    "<div class='step'>" +
-                                    "<a href='../upload/books/" + data[i]['category'] + "/" + data[i]['book_cover'] + "'>" +
-                                    "<div class='wrap-icon icon-1 mt-4'>" +
-                                    "<img src='../upload/cover/" + data[i]['book_cover'] + " alt='" + data[i]['title'] + " Cover' height='300px'> " +
-                                    "</div>" +
-                                    "</a><h6 class='mt-4 post-text'>" +
-                                    "<span class='post-meta'><a href='#'>" + data[i]['author'] + " </a> </span> </h6>" +
-                                    "<a href='../upload/books/" + data[i]['category'] + "/" + data[i]['new_name'] + "'> <h5><b> " + data[i]['title'] + "</b></h5> </a>" +
-                                    "<span >" + data[i]['date_published'] + "<sup>" + data[i]['posted_by'] + "</sup> </span> <br> <sub> <b>" + data[i]['category'] + "</b></sub>" +
-                                    "<p class='text-danger'>" + data[i]['price'] + "</p> <p><a href='#'> 5 <i class='fa fa-eye'> </i></a> & nbsp; " +
-                                    "<p><a href='#'> 487 <i class='fa fa-book'> </i></a> & nbsp; <p><a href='#'> 5 <i class='fa fa-thumbs-up'> </i></a> & nbsp; " +
-                                    "<p><a href='#'> 5 <i class='fa fa-star'> </i></a> & nbsp; <p><a href='#'> 5 <i class='fa fa-download'> </i></a> & nbsp; " +
-                                    "</div></div>";
-                                // displayPage.innerText += booksResult;
-                                // console.log(data);
-                            }
-                        } else {
-                            console.log("No book found with this keyword.");
-                        }
-                    },
-                    failure: function() {
-                        console.log("Could not complete search");
-                    }
-                });
-            }
-
-            function loadBookCategory(e) {
-                var displayPage = document.getElementById("bookPage");
-                var searchFormToken = document.getElementById("searchFormToken").value;
-                var formData = 'searchValue=' + e.value + '&categoryBoxForm=' + searchFormToken;
-                console.log(formData);
-                $.ajax({
-                    type: 'POST',
-                    url: '../process/index.php',
-                    data: formData,
-                    cache: false,
-                    success: function(data) {
-                        console.log(data);
-                    },
-                    failure: function() {
-                        console.log("Could not complete search");
-                    }
-                })
-            }
-            </script>
+        <!-- Template Main JS File -->
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/main.js"></script>
+        <script src="../assets/js/process.js"></script>
     </body>
 
 </html>

@@ -117,7 +117,7 @@ class User extends Connect
     public function getAllBooks()
     {
         try {
-            $sql = "SELECT title,author,date_published,description,posted_by,date_uploaded,new_name,book_cover,price,category FROM books ORDER BY date_uploaded ASC LIMIT 12";
+            $sql = "SELECT title,author,date_published,description,posted_by,date_uploaded,new_name,book_cover,price,category FROM books ORDER BY date_uploaded DESC LIMIT 12";
             //prepare query
             $q = $this->connect->prepare($sql);
             //execute query
@@ -133,11 +133,29 @@ class User extends Connect
         if ($allBooks)
             return $allBooks;
     }
-
+    public function getMyBooks($username)
+    {
+        try {
+            $sql = "SELECT title,author,date_published,description,posted_by,date_uploaded,new_name,book_cover,price,category FROM books WHERE posted_by = :username ORDER BY date_uploaded DESC LIMIT 12";
+            //prepare query
+            $q = $this->connect->prepare($sql);
+            //execute query
+            $q->execute(array(':username' => $username));
+            // Get username
+            $allBooks = $q->fetchAll();
+        } catch (PDOException $e) {
+            $this->Log_DBerror_msg($e->getMessage(), $e->getCode(), $e->getFile(), $e->getLine());
+            $err = 'An error might have occurred in the System';
+            header("location: http://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"] . "/?err=$err");
+            exit();
+        }
+        if ($allBooks)
+            return $allBooks;
+    }
     public function searchBooks($searchWord)
     {
         try {
-            $sql = "SELECT title,author,date_published,description,posted_by,date_uploaded,new_name,book_cover,price,category FROM books WHERE title LIKE '%' :searchKey '%' ORDER BY title ASC";
+            $sql = "SELECT title,author,date_published,description,posted_by,date_uploaded,new_name,book_cover,price,category FROM books WHERE title LIKE '%' :searchKey '%' ORDER BY title DESC";
             //prepare query
             $q = $this->connect->prepare($sql);
             //execute query
@@ -157,7 +175,7 @@ class User extends Connect
     public function searchBookCategory($category)
     {
         try {
-            $sql = "SELECT title,author,date_published,description,posted_by,date_uploaded,new_name,book_cover,price,category FROM books WHERE category = :searchKey ORDER BY title ASC";
+            $sql = "SELECT title,author,date_published,description,posted_by,date_uploaded,new_name,book_cover,price,category FROM books WHERE category = :searchKey ORDER BY title DESC";
             //prepare query
             $q = $this->connect->prepare($sql);
             //execute query
@@ -178,7 +196,7 @@ class User extends Connect
     {
         try {
             // TODO: Make this pick only more read books
-            $sql = "SELECT title,author,date_published,description,posted_by,date_uploaded,new_name,book_cover,price,category FROM books ORDER BY date_uploaded ASC LIMIT 1";
+            $sql = "SELECT title,author,date_published,description,posted_by,date_uploaded,new_name,book_cover,price,category FROM books ORDER BY date_uploaded DESC LIMIT 1";
             //prepare query
             $q = $this->connect->prepare($sql);
             //execute query

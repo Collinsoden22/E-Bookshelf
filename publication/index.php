@@ -10,7 +10,7 @@ if ($_SESSION['role'] == 'USER') {
 } elseif ($_SESSION['role'] == 'ADMIN') {
     include("../classes/user.php");
     $db = new User();
-    $books = $db->getAllBooks();
+    $books = $db->getMyBooks($_SESSION['userID']);
     $bookOfTheWeek = $db->getHighestReadBooks();
 } else {
     $err = "Please login again to continue";
@@ -89,7 +89,7 @@ if ($_SESSION['role'] == 'USER') {
             <section class="section  col-md-12">
                 <div class="row justify-content-center text-center store-bg">
                     <div class="col-md-5" data-aos="fade-up">
-                        <h2 class="section-heading">Store</h2>
+                        <h2 class="section-heading">My Published Books</h2>
                     </div>
                 </div>
                 <div class="form-group col-md-12 mt-3">
@@ -205,7 +205,7 @@ if ($_SESSION['role'] == 'USER') {
                                                 <span class="fa fa-star-fill"></span>
                                                 <span class="fa fa-star-fill"></span>
                                                 <span class="fa fa-star-fill"></span>
-                                                <span class="fa fa-star-fill muted"></span>
+                                                <span class="fa fa-star-fill"></span>
                                             </p>
                                             <h3><?= $bookOfTheWeek['title'] ?></h3>
                                             <blockquote>
@@ -248,6 +248,7 @@ if ($_SESSION['role'] == 'USER') {
             </section>
 
             <?php include("../sections/about.php"); ?>
+
             <!-- Vendor JS Files -->
             <script src="../assets/vendor/aos/aos.js"></script>
             <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -258,6 +259,7 @@ if ($_SESSION['role'] == 'USER') {
             <script src="../assets/js/jquery.min.js"></script>
             <script src="../assets/js/main.js"></script>
             <script src="../assets/js/process.js"></script>
+
     </body>
 
 </html>

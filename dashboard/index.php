@@ -26,7 +26,6 @@ if ($_SESSION['role'] == 'ADMIN') {
     <head>
         <meta charset="utf-8">
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
         <title>E-BookShelf</title>
         <meta content="" name="description">
         <meta content="" name="keywords">
@@ -34,17 +33,14 @@ if ($_SESSION['role'] == 'ADMIN') {
         <link href="../assets/img/favicon.png" rel="icon">
         <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
         <!-- Vendor CSS Files -->
         <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
         <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
         <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
         <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
         <!-- Template Main CSS File -->
         <link href="../assets/css/style.css" rel="stylesheet">
     </head>
@@ -52,7 +48,6 @@ if ($_SESSION['role'] == 'ADMIN') {
     <body>
         <header id="header" class="fixed-top d-flex align-items-center">
             <div class="container d-flex justify-content-between align-items-center">
-
                 <div class="logo">
                     <h1><a href="index.php">E-Bookshelf</a></h1>
                 </div>
@@ -74,7 +69,6 @@ if ($_SESSION['role'] == 'ADMIN') {
             </div>
         </header>
         <!-- End Header -->
-
         <main id="main" class="main-body">
             <section class="section  col-md-12">
                 <div class="row justify-content-center text-center store-bg">
@@ -118,7 +112,6 @@ if ($_SESSION['role'] == 'ADMIN') {
                         <input type="text" placeholder="Search books" class="form-control" onkeyup="searchBook(this);" value="">
                     </div>
                 </div>
-
                 <div class="row text-center ml-1 mr-1 mt-12" id="bookPage">
                     <!-- TODO: Loop here -->
                     <?php
@@ -128,9 +121,11 @@ if ($_SESSION['role'] == 'ADMIN') {
                     <div class="col-md-4">
                         <div class="step">
                             <?php
+                                $bookId = $book['id'];
+                                $bookLink = "../upload/books/" . $book['category'] . "/" . $book['new_name'];
                                 //Link below for free books, books with price > 0 should have a link to payment 
                                 ?>
-                            <a href="../upload/books/<?= $book['category'] ?>/<?= $book['new_name'] ?>">
+                            <a href="#" onclick="countViews(<?= $bookId ?>, <?= $bookLink ?>);">
                                 <div class="wrap-icon icon-1 mt-4">
                                     <img src="../upload/cover/<?= $book['book_cover'] ?>" alt="<?= $book['title'] ?> Cover" height="300px">
                                 </div>
@@ -138,27 +133,44 @@ if ($_SESSION['role'] == 'ADMIN') {
                             <h6 class="mt-4 post-text">
                                 <span class="post-meta"><a href="#"> <?= $book['author'] ?> </a> </span>
                             </h6>
-                            <a href="../upload/books/<?= $book['category'] ?>/<?= $book['new_name'] ?>">
+                            <a href="#" onclick="countViews(<?= $bookId ?>, <?= $bookLink ?>);">
                                 <h5><b><?= $book['title'] ?> </b></h5>
                             </a>
                             <span><?= $book['date_published'] ?> <sup> <?= $book['posted_by'] ?></sup> </span> <br><sub><b><?= $book['category'] ?></b></sub>
                             <p class="text-danger">$<?= $book['price'] ?></p>
                             <?php
                                 // Get book activities
+                                $bookActivities = $db->getBookActivities($bookId);
+                                $bookStars = $db->getBookStarCount($bookId);
+                                $bookLikes = $db->getLikeCount($bookId);
+
                                 ?>
                             <p>
-                                <a href="#">5 <i class="fa fa-eye"></i></a> &nbsp;
-                                <a href="#"> 487 <i class="fa fa-book"></i></a>&nbsp;
-                                <a href="#">0 <i class="fa fa-thumbs-up"></i></a>&nbsp;
-                                <a href="#">26 <i class="fa fa-star"></i></a>&nbsp;
-                                <a href="#">5 <i class="fa fa-download"></i></a>
+                                <a href="#"><?= number_format($bookActivities['times_viewed']); ?> <i class="fa fa-eye"></i></a> &nbsp;
+                                <a href="#"> <?= number_format($bookActivities['times_read']); ?> <i class="fa fa-book"></i></a>&nbsp;
+                                <a href="#">
+                                    <?php
+                                        if ($bookLikes) {
+                                            echo number_format(count($bookLikes['user_id']));
+                                        } else {
+                                            echo '0';
+                                        } ?>
+                                    <i class="fa fa-thumbs-up"></i></a>&nbsp;
+                                <a href="#">
+                                    <?php
+                                        if ($bookStars) {
+                                            echo number_format(count($bookStars['user_id']));
+                                        } else {
+                                            echo '0';
+                                        } ?>
+                                    <i class="fa fa-star"></i></a>&nbsp;
+                                <a href="#" onclick="triggerDownload(<?= $bookId ?>, <?= $bookLink ?>);"><?= number_format($bookActivities['times_downloaded']); ?> <i class="fa fa-download"></i></a>
                             </p>
                         </div>
                     </div>
                     <?php
                     }
                 } else { ?>
-
                     <div class="col-md-12">
                         <div class="step">
                             <h5><b>We could not find any this book at the moment</b></h5>
@@ -168,13 +180,10 @@ if ($_SESSION['role'] == 'ADMIN') {
                     <?php
                 }
                 ?>
-
                 </div>
                 </div>
-
             </section>
         </main>
-
         <!-- ======= Book of the Week Section ======= -->
         <section class="section border-top border-bottom">
             <div class="container">
@@ -186,7 +195,6 @@ if ($_SESSION['role'] == 'ADMIN') {
                 </div>
                 <div class="row justify-content-center text-center">
                     <div class="col-md-7">
-
                         <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide">
@@ -208,10 +216,8 @@ if ($_SESSION['role'] == 'ADMIN') {
                                                 <span class="text-black"><?= $bookOfTheWeek['author'] ?></span> &mdash; Posted by <?= $bookOfTheWeek['posted_by'] ?>
                                             </span>
                                         </p>
-
                                     </div>
                                 </div>
-
                                 <!-- New here -->
                             </div>
                             <div class="swiper-pagination"></div>
@@ -220,7 +226,6 @@ if ($_SESSION['role'] == 'ADMIN') {
                 </div>
             </div>
         </section>
-
         <section class="section cta-section">
             <div class="container">
                 <div class="row align-items-center">
@@ -243,7 +248,6 @@ if ($_SESSION['role'] == 'ADMIN') {
         <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
         <script src="../assets/vendor/php-email-form/validate.js"></script>
-
         <!-- Template Main JS File -->
         <script src="../assets/js/jquery.min.js"></script>
         <script src="../assets/js/main.js"></script>

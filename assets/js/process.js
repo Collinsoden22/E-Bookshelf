@@ -55,5 +55,46 @@ function loadBookCategory(e) {
         failure: function () {
             console.log("Could not complete search");
         }
-    })
+    });
+}
+
+function countViews(bookId, bookLink) {
+    // Update number of views
+    var searchFormToken = document.getElementById("searchFormToken").value;
+    var userID = document.getElementById("userID").value;
+
+    var formData = 'userID=' + userID + '<&bookID=' + bookId + '&countViewsForm=' + searchFormToken;
+    console.log(formData);
+    // $.ajax({
+    //     type: 'POST',
+    //     url: '../process/index.php',
+    //     data: formData,
+    //     cache: false,
+    //     success: function (data) {
+    // console.log(data);
+    //     },
+    //     failure: function () {
+    //         console.log("Could not complete search");
+    //     }
+    // });
+}
+
+function triggerDownload(bookId, bookLink) {
+    var searchFormToken = document.getElementById("searchFormToken").value;
+    var userID = document.getElementById("userID").value;
+
+    var formData = 'userID=' + userID + '<&bookID=' + bookId + '&downloadTriggerForm=' + searchFormToken;
+    console.log(formData);
+    // $.ajax({
+    //     type: 'POST',
+    //     url: '../process/index.php',
+    //     data: formData,
+    //     cache: false,
+    //     success: function (data) {
+    //         console.log(data);
+    //     },
+    //     failure: function () {
+    //         console.log("Could not complete search");
+    //     }
+    // });
 }

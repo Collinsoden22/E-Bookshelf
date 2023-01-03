@@ -117,7 +117,7 @@ class User extends Connect
     public function getAllBooks()
     {
         try {
-            $sql = "SELECT title,author,date_published,description,posted_by,date_uploaded,new_name,book_cover,price,category FROM books ORDER BY date_uploaded DESC LIMIT 12";
+            $sql = "SELECT id,title,author,date_published,description,posted_by,date_uploaded,new_name,book_cover,price,category FROM books ORDER BY date_uploaded DESC LIMIT 12";
             //prepare query
             $q = $this->connect->prepare($sql);
             //execute query
@@ -152,6 +152,69 @@ class User extends Connect
         if ($allBooks)
             return $allBooks;
     }
+
+    public function getBookActivities($bookID)
+    {
+        try {
+            $sql = "SELECT times_read,times_downloaded,times_viewed FROM book_activities WHERE book_id = :theBookID";
+            //prepare query
+            $q = $this->connect->prepare($sql);
+            //execute query
+            $q->execute(array(':theBookID' => $bookID));
+            // Get username
+            $allAct = $q->fetch();
+        } catch (PDOException $e) {
+            $this->Log_DBerror_msg($e->getMessage(), $e->getCode(), $e->getFile(), $e->getLine());
+            $err = 'An error might have occurred in the System';
+            header("location: http://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"] . "/?err=$err");
+            exit();
+        }
+        if ($allAct) {
+            return $allAct;
+        } else {
+            return array("times_read" => 0, "times_downloaded" => 0, "times_viewed" => 0);
+        }
+    }
+    public function getBookStarCount($bookID)
+    {
+        try {
+            $sql = "SELECT user_id FROM favorite_books WHERE book_id = :theBookID";
+            //prepare query
+            $q = $this->connect->prepare($sql);
+            //execute query
+            $q->execute(array(':theBookID' => $bookID));
+            // Get username
+            $favourite = $q->fetchAll();
+        } catch (PDOException $e) {
+            $this->Log_DBerror_msg($e->getMessage(), $e->getCode(), $e->getFile(), $e->getLine());
+            $err = 'An error might have occurred in the System';
+            header("location: http://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"] . "/?err=$err");
+            exit();
+        }
+        if ($favourite)
+            return $favourite['user_id'];
+    }
+
+    public function getLikeCount($bookID)
+    {
+        try {
+            $sql = "SELECT user_id FROM liked_books WHERE book_id = :theBookID";
+            //prepare query
+            $q = $this->connect->prepare($sql);
+            //execute query
+            $q->execute(array(':theBookID' => $bookID));
+            // Get username
+            $likedBooks = $q->fetchAll();
+        } catch (PDOException $e) {
+            $this->Log_DBerror_msg($e->getMessage(), $e->getCode(), $e->getFile(), $e->getLine());
+            $err = 'An error might have occurred in the System';
+            header("location: http://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"] . "/?err=$err");
+            exit();
+        }
+        if ($likedBooks)
+            return $likedBooks['user_id'];
+    }
+
     public function searchBooks($searchWord)
     {
         try {

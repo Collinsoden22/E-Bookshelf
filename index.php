@@ -171,7 +171,7 @@
                     <div class="col-md-4">
                         <div class="step">
                             <div class="icon-1 grow">
-                                <img src="assets/img/person_2.jpg" class="circular" alt="" width="200px" height="200px">
+                                <img src="assets/img/maureen.jpeg" class="circular" alt="" width="200px" height="200px">
                             </div>
                             <h3 class="mt-4">Maureen Mbugua</h3>
                             <h5>(Frontend Engineer)</h5>

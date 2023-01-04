@@ -63,7 +63,7 @@ to look good.
 
 ## 🎈 Usage <a name="usage"></a>
 
-Login to the project website and enjoy free E-Books.
+Login to the project website and enjoy free E-Books. Free login details can be gotten from [Here](http://procodes.tech/login)
 
 
 ## ⛏️ Built Using <a name = "built_using"></a>

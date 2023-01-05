@@ -121,11 +121,11 @@ if (isset($_POST['uploadBookForm']) && $_POST['uploadBookForm'] == $_SESSION['up
     $db = new user();
 
     $bookActivities = $db->getBookActivities($bookID);
-    $downloadTimes = $bookActivities;
+    
     if (empty($bookActivities['times_viewed']) && empty($bookActivities['times_downloaded'])) {
         $books = $db->registerDownloadClick($bookID, 1);
     } else {
-        $downloadTimes = $downloadTimes['times_download'];
+        $downloadTimes = $bookActivities['times_downloaded'];
         $books = $db->updateDownloadClick($bookID, $downloadTimes + 1);
     }
     if ($books) {

@@ -141,7 +141,7 @@ if ($_SESSION['role'] == 'USER') {
                                 $bookLink = "../upload/books/" . $book['category'] . "/" . $book['new_name'];
                                 //Link below for free books, books with price > 0 should have a link to payment 
                                 ?>
-                            <a href="#book_<? $bookId ?>" onclick="countViews('<?= $bookId ?>', '<?= $bookLink ?>');" id="book_<? $bookId ?>">
+                            <a href="#book_<?= $bookId ?>" onclick="countViews('<?= $bookId ?>', '<?= $bookLink ?>');" id="book_<? $bookId ?>">
                                 <div class="wrap-icon icon-1 mt-4">
                                     <img src="../upload/cover/<?= $book['book_cover'] ?>" alt="<?= $book['title'] ?> Cover" height="300px">
                                 </div>
@@ -149,7 +149,7 @@ if ($_SESSION['role'] == 'USER') {
                             <h6 class="mt-4 post-text">
                                 <span class="post-meta"><a href="#"> <?= $book['author'] ?> </a> </span>
                             </h6>
-                            <a href="#book_<? $bookId ?>" onclick="countViews('<?= $bookId ?>', '<?= $bookLink ?>');" title="<?= $book['title'] ?>">
+                            <a href="#book_<?= $bookId ?>" onclick="countViews('<?= $bookId ?>', '<?= $bookLink ?>');" title="<?= $book['title'] ?>">
                                 <h5><b><?= $book['title'] ?> </b></h5>
                             </a>
                             <span><?= $book['date_published'] ?> <sup> <?= $book['posted_by'] ?></sup> </span> <br><sub><b><?= $book['category'] ?></b></sub>
@@ -164,9 +164,9 @@ if ($_SESSION['role'] == 'USER') {
 
                                 ?>
                             <p>
-                                <a href="#book_<? $bookId ?>" title="Views"><?= number_format($bookActivities['times_viewed']); ?> <i class="fa fa-eye"></i></a> &nbsp;
-                                <a href="#book_<? $bookId ?>" title="Times Read"> <?= number_format($bookActivities['times_read']); ?> <i class="fa fa-book"></i></a>&nbsp;
-                                <a href="#book_<? $bookId ?>" title="Likes">
+                                <a href="#book_<?= $bookId ?>" title="Views"><?= number_format($bookActivities['times_viewed']); ?> <i class="fa fa-eye"></i></a> &nbsp;
+                                <a href="#book_<?= $bookId ?>" title="Times Read"> <?= number_format($bookActivities['times_read']); ?> <i class="fa fa-book"></i></a>&nbsp;
+                                <a href="#book_<?= $bookId ?>" title="Likes">
                                     <?php
                                         if ($bookLikes) {
                                             echo number_format(count($bookLikes['user_id']));
@@ -174,7 +174,7 @@ if ($_SESSION['role'] == 'USER') {
                                             echo '0';
                                         } ?>
                                     <i class="fa fa-thumbs-up"></i></a> &nbsp;
-                                <a href="#book_<? $bookId ?>" title="Favourites">
+                                <a href="#book_<?= $bookId ?>" title="Favourites">
                                     <?php
                                         // If book has any star, print total number of stars, else print '0'
                                         if ($bookStars) {
@@ -183,7 +183,7 @@ if ($_SESSION['role'] == 'USER') {
                                             echo '0';
                                         } ?>
                                     <i class="fa fa-star"></i></a>&nbsp;
-                                <a href="#book_<? $bookId ?>" title="Downloads" onclick="triggerDownload('<?= $bookId ?> ', '<?= $bookLink ?>');"> <?= number_format($bookActivities['times_downloaded']); ?> <i class="fa fa-download"></i></a>
+                                <a href="#book_<?= $bookId ?>" title="Downloads" onclick="triggerDownload('<?= $bookId ?> ', '<?= $bookLink ?>');"> <?= number_format($bookActivities['times_downloaded']); ?> <i class="fa fa-download"></i></a>
                             </p>
                         </div>
                     </div>

@@ -121,10 +121,11 @@ if (isset($_POST['uploadBookForm']) && $_POST['uploadBookForm'] == $_SESSION['up
     $db = new user();
 
     $bookActivities = $db->getBookActivities($bookID);
-    $downloadTimes = $bookActivities['times_downloaded'];
-    if (empty($downloadTimes)) {
+    $downloadTimes = $bookActivities;
+    if (empty($bookActivities['times_viewed']) && empty($bookActivities['times_downloaded'])) {
         $books = $db->registerDownloadClick($bookID, 1);
     } else {
+        $downloadTimes = $downloadTimes['times_download'];
         $books = $db->updateDownloadClick($bookID, $downloadTimes + 1);
     }
     if ($books) {
@@ -132,6 +133,26 @@ if (isset($_POST['uploadBookForm']) && $_POST['uploadBookForm'] == $_SESSION['up
     } else {
         echo 'Book not found';
     }
+} elseif (isset($_POST['countViewsForm']) && ($_POST['countViewsForm'] == $_SESSION['searchValueFormToken'])) {
+    include("../classes/user.php");
+
+    $bookID = htmlentities(trim($_POST['bookID']));
+    $userID = htmlentities(trim($_POST['userID']));
+    $db = new user();
+
+    // Get book activities 
+    $bookActivities = $db->getBookActivities($bookID);
+
+    // If item with book id is not found in db, create new one
+    if (empty($bookActivities['times_viewed']) && empty($bookActivities['times_downloaded'])) {
+        $bookUpdated = $db->registerViewClick($bookID, 1);
+    } else {
+        // Update times viewed and read if matching id is found
+        $viewedTimes = $bookActivities['times_viewed'];
+        $bookUpdated = $db->updateViewClick($bookID, $viewedTimes + 1);
+    }
+    if ($bookUpdated)
+        return true;
 } else {
     session_destroy();
     header("location: ../");

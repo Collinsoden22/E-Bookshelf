@@ -50,7 +50,7 @@ function loadBookCategory(e) {
         data: formData,
         cache: false,
         success: function (data) {
-            console.log(data);
+            console.log("Request completed");
         },
         failure: function () {
             console.log("Could not complete search");
@@ -63,20 +63,23 @@ function countViews(bookId, bookLink) {
     var searchFormToken = document.getElementById("searchFormToken").value;
     var userID = document.getElementById("userID").value;
 
-    var formData = 'userID=' + userID + '<&bookID=' + bookId + '&countViewsForm=' + searchFormToken;
-    console.log(formData);
-    // $.ajax({
-    //     type: 'POST',
-    //     url: '../process/index.php',
-    //     data: formData,
-    //     cache: false,
-    //     success: function (data) {
-    // console.log(data);
-    //     },
-    //     failure: function () {
-    //         console.log("Could not complete search");
-    //     }
-    // });
+    var formData = 'userID=' + userID + '&bookID=' + bookId + '&countViewsForm=' + searchFormToken;
+    // console.log(formData);
+    $.ajax({
+        type: 'POST',
+        url: '../process/index.php',
+        data: formData,
+        cache: false,
+        success: function (data) {
+            // Reload Page
+            console.log('Success');
+            // Log update
+        },
+        failure: function () {
+            console.log("Network Error: Could not complete request");
+        }
+    });
+
 }
 
 function triggerDownload(bookId, bookLink) {

@@ -68,11 +68,11 @@ Login to the project website and enjoy free E-Books. Free login details can be g
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
+- [PHP](https://php.net/) - Server Environment
 - [MySQL](https://www.mongodb.com/) - Database
 - [Javascript](https://js.org/) - Frontend
 - [HTML](http://html5up.org/) - App Structure
-- [Bootstrap] (https://getbootstrap.com/) - Styling
-- [PHP](https://php.net/) - Server Environment
+- [Bootstrap](https://getbootstrap.com/) - Server Environment
 
 ## ✍️ Authors <a name = "authors"></a>
 

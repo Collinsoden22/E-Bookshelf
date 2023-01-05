@@ -82,19 +82,23 @@ function countViews(bookId, bookLink) {
 function triggerDownload(bookId, bookLink) {
     var searchFormToken = document.getElementById("searchFormToken").value;
     var userID = document.getElementById("userID").value;
+    console.log(searchFormToken);
 
-    var formData = 'userID=' + userID + '<&bookID=' + bookId + '&downloadTriggerForm=' + searchFormToken;
-    console.log(formData);
-    // $.ajax({
-    //     type: 'POST',
-    //     url: '../process/index.php',
-    //     data: formData,
-    //     cache: false,
-    //     success: function (data) {
-    //         console.log(data);
-    //     },
-    //     failure: function () {
-    //         console.log("Could not complete search");
-    //     }
-    // });
+    var formData = 'userID=' + userID + '&bookID=' + bookId + '&downloadTriggerForm=' + searchFormToken;
+
+    // Update download count
+    $.ajax({
+        type: 'POST',
+        url: '../process/index.php',
+        data: formData,
+        cache: false,
+        success: function (data) {
+            // Download Book
+            window.open(bookLink, '_blank')
+            console.log("Book Download updated");
+        },
+        failure: function () {
+            console.log("Network Error: Could not complete request");
+        }
+    });
 }

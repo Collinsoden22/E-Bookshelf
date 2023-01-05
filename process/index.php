@@ -90,10 +90,10 @@ if (isset($_POST['uploadBookForm']) && $_POST['uploadBookForm'] == $_SESSION['up
 
     // Upload Files
     include("../classes/user.php");
-    
+
     $searchItem = htmlentities(trim($_POST['searchValue']));
     $db = new user();
-    
+
     // Save Book information
     $books = $db->searchBooks($searchItem);
     if ($books) {
@@ -108,6 +108,25 @@ if (isset($_POST['uploadBookForm']) && $_POST['uploadBookForm'] == $_SESSION['up
     $db = new user();
 
     $books = $db->searchBookCategory($searchItem);
+    if ($books) {
+        echo var_dump($books);
+    } else {
+        echo 'Book not found';
+    }
+} elseif (isset($_POST['downloadTriggerForm']) && ($_POST['downloadTriggerForm'] == $_SESSION['searchValueFormToken'])) {
+    include("../classes/user.php");
+
+    $bookID = htmlentities(trim($_POST['bookID']));
+    $userID = htmlentities(trim($_POST['userID']));
+    $db = new user();
+
+    $bookActivities = $db->getBookActivities($bookID);
+    $downloadTimes = $bookActivities['times_downloaded'];
+    if ($downloadTimes == '') {
+        $books = $db->registerDownloadClick($bookID, $downloadTimes + 1);
+    } else {
+        $books = $db->updateDownloadClick($bookID, $downloadTimes + 1);
+    }
     if ($books) {
         echo var_dump($books);
     } else {

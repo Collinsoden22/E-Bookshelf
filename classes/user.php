@@ -315,6 +315,43 @@ class User extends Connect
         }
         return true;
     }
+    public function registerDownloadClick($bookID, $times)
+    {
+        try {
+            $sql = "INSERT INTO book_activities(book_id, times_downloaded) VALUES(:bookID,:timesDownloaded)";
+            //prepare query
+            $q = $this->connect->prepare($sql);
+            //execute query
+            $q->execute(array(':bookID' => $bookID, ':timesDownloaded' => $times));
+        } catch (PDOException $e) {
+            $this->Log_DBerror_msg($e->getMessage(), $e->getCode(), $e->getFile(), $e->getLine());
+            session_unset();
+            session_destroy();
+            $err = 'An error might have occurred in the System';
+            header("../logout/?err=$err");
+            exit();
+        }
+        return true;
+    }
+
+    public function updateDownloadClick($bookID, $times)
+    {
+        try {
+            $sql = "UPDATE book_activities SET times_downloaded =:timesDownloaded WHERE book_id=:bookID";
+            //prepare query
+            $q = $this->connect->prepare($sql);
+            //execute query
+            $q->execute(array(':bookID' => $bookID, ':timesDownloaded' => $times));
+        } catch (PDOException $e) {
+            $this->Log_DBerror_msg($e->getMessage(), $e->getCode(), $e->getFile(), $e->getLine());
+            session_unset();
+            session_destroy();
+            $err = 'An error might have occurred in the System';
+            header("../logout/?err=$err");
+            exit();
+        }
+        return true;
+    }
 
 
     public function processLogin($username, $password)

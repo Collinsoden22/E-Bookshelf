@@ -149,7 +149,7 @@ if ($_SESSION['role'] == 'USER') {
                             <h6 class="mt-4 post-text">
                                 <span class="post-meta"><a href="#"> <?= $book['author'] ?> </a> </span>
                             </h6>
-                            <a href="#" onclick="countViews(<?= $bookId ?>, <?= $bookLink ?>);">
+                            <a href="#" onclick="countViews(<?= $bookId ?>, <?= $bookLink ?>);" title="<?= $book['title'] ?>">
                                 <h5><b><?= $book['title'] ?> </b></h5>
                             </a>
                             <span><?= $book['date_published'] ?> <sup> <?= $book['posted_by'] ?></sup> </span> <br><sub><b><?= $book['category'] ?></b></sub>
@@ -164,9 +164,9 @@ if ($_SESSION['role'] == 'USER') {
 
                                 ?>
                             <p>
-                                <a href="#"><?= number_format($bookActivities['times_viewed']); ?> <i class="fa fa-eye"></i></a> &nbsp;
-                                <a href="#"> <?= number_format($bookActivities['times_read']); ?> <i class="fa fa-book"></i></a>&nbsp;
-                                <a href="#">
+                                <a href="#" title="Views"><?= number_format($bookActivities['times_viewed']); ?> <i class="fa fa-eye"></i></a> &nbsp;
+                                <a href="#" title="Times Read"> <?= number_format($bookActivities['times_read']); ?> <i class="fa fa-book"></i></a>&nbsp;
+                                <a href="#" title="Likes">
                                     <?php
                                         if ($bookLikes) {
                                             echo number_format(count($bookLikes['user_id']));
@@ -174,7 +174,7 @@ if ($_SESSION['role'] == 'USER') {
                                             echo '0';
                                         } ?>
                                     <i class="fa fa-thumbs-up"></i></a> &nbsp;
-                                <a href="#">
+                                <a href="#" title="Favourites">
                                     <?php
                                         // If book has any star, print total number of stars, else print '0'
                                         if ($bookStars) {
@@ -183,7 +183,7 @@ if ($_SESSION['role'] == 'USER') {
                                             echo '0';
                                         } ?>
                                     <i class="fa fa-star"></i></a>&nbsp;
-                                <a href="#" onclick="triggerDownload( <?= $bookId; ?>, <?= $bookLink; ?> );"> <?= number_format($bookActivities['times_downloaded']); ?> <i class="fa fa-download"></i></a>
+                                <a href="#" title="Downloads" onclick="triggerDownload('<?= $bookId ?> ', '<?= $bookLink ?>');"> <?= number_format($bookActivities['times_downloaded']); ?> <i class="fa fa-download"></i></a>
                             </p>
                         </div>
                     </div>

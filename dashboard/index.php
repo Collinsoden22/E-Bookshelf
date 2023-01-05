@@ -1,9 +1,9 @@
 <?php
 
 session_start();
-
+// Generate random token for form security 
 $searchFormToken = mt_rand() . mt_rand() . mt_rand();
-
+// Confirm user role and redirect according to current role
 $_SESSION['searchValueFormToken'] = $searchFormToken;
 if ($_SESSION['role'] == 'ADMIN') {
     header("location: ../publisher/?err=$err");
@@ -13,6 +13,7 @@ if ($_SESSION['role'] == 'ADMIN') {
     $books = $db->getAllBooks();
     $bookOfTheWeek = $db->getHighestReadBooks();
 } else {
+    // Log user out if role cannot be verified.
     $err = "Please login again to continue";
     session_destroy();
     header("location: ../login/?err=$err");
@@ -141,7 +142,9 @@ if ($_SESSION['role'] == 'ADMIN') {
                             <?php
                                 // Get book activities
                                 $bookActivities = $db->getBookActivities($bookId);
+                                // Get book stars
                                 $bookStars = $db->getBookStarCount($bookId);
+                                // Get all book likes
                                 $bookLikes = $db->getLikeCount($bookId);
 
                                 ?>

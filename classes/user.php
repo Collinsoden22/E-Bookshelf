@@ -4,7 +4,7 @@ require_once("connect_db.php");
 class User extends Connect
 {
 
-
+    // Function to log DB Errors
     public function Log_DBerror_msg($message, $code, $file, $line)
     {
         $err = date("Y-m-d h:i:s -") .  "Error: (Code: " . $code . ") on " . $line . " in " . $file . ": " . $message . "\n";
@@ -13,6 +13,7 @@ class User extends Connect
         exit();
     }
 
+    // Create account function
     public function createAccount($username, $email, $password)
     {
         $this->connect->beginTransaction();
@@ -43,7 +44,7 @@ class User extends Connect
     }
     // Save user details to DB
     // Send User email
-    
+
     public function confirmUserExist($username)
     {
         try {
@@ -66,7 +67,7 @@ class User extends Connect
             return true;
         }
     }
-
+    // Check User password here
     public function checkUserpassword($username, $password)
     {
         try {
@@ -292,7 +293,7 @@ class User extends Connect
             header("../login/?err=$err");
             exit();
         }
-            return true;
+        return true;
     }
 
 
@@ -304,7 +305,6 @@ class User extends Connect
             $q = $this->connect->prepare($sql);
             //execute query
             $q->execute(array(':Username' => $username));
-
         } catch (PDOException $e) {
             $this->Log_DBerror_msg($e->getMessage(), $e->getCode(), $e->getFile(), $e->getLine());
             session_unset();
@@ -313,7 +313,7 @@ class User extends Connect
             header("../logout/?err=$err");
             exit();
         }
-            return true;
+        return true;
     }
 
 
@@ -362,26 +362,27 @@ class User extends Connect
             }
         }
     }
-    public function uploadBookDetails($category, $author, $title, $bookPrice, $dateofPub, $postedBy, $summary, $oldName, $newName, $cover){
-            try {
-                $sql = "INSERT into books (title,author,date_published,description,posted_by,date_uploaded,file_name,new_name,book_cover,price,category) ". 
+    public function uploadBookDetails($category, $author, $title, $bookPrice, $dateofPub, $postedBy, $summary, $oldName, $newName, $cover)
+    {
+        try {
+            $sql = "INSERT into books (title,author,date_published,description,posted_by,date_uploaded,file_name,new_name,book_cover,price,category) " .
                 " VALUES(:bookTitle,:bookAuthor,:pubDate,:desc,:postedBy,NOW(),:fileName,:newName,:bookCover,:price,:bookCategory)";
-                //prepare query
-                $q = $this->connect->prepare($sql);
-                //execute query
-                $q->execute(array(':bookTitle'=>$title,':bookAuthor' =>$author,':pubDate'=>$dateofPub,':desc'=> $summary, ':postedBy' =>$postedBy,':fileName' => $oldName, ':newName' =>$newName, ':bookCover' =>$cover, ':price' =>$bookPrice, ':bookCategory'=>$category));
-                // Get username
-                $userEmail = $q->fetch();
-            } catch (PDOException $e) {
-                $this->Log_DBerror_msg($e->getMessage(), $e->getCode(), $e->getFile(), $e->getLine());
-                session_unset();
-                session_destroy();
-                $err = 'An error might have occurred in the System';
-                header("../login/?err=$err");
-                exit();
-            }
-            if ($userEmail) {
-                return true;
-            }    
+            //prepare query
+            $q = $this->connect->prepare($sql);
+            //execute query
+            $q->execute(array(':bookTitle' => $title, ':bookAuthor' => $author, ':pubDate' => $dateofPub, ':desc' => $summary, ':postedBy' => $postedBy, ':fileName' => $oldName, ':newName' => $newName, ':bookCover' => $cover, ':price' => $bookPrice, ':bookCategory' => $category));
+            // Get username
+            $userEmail = $q->fetch();
+        } catch (PDOException $e) {
+            $this->Log_DBerror_msg($e->getMessage(), $e->getCode(), $e->getFile(), $e->getLine());
+            session_unset();
+            session_destroy();
+            $err = 'An error might have occurred in the System';
+            header("../login/?err=$err");
+            exit();
+        }
+        if ($userEmail) {
+            return true;
+        }
     }
 }

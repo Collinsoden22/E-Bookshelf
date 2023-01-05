@@ -3,16 +3,20 @@
 session_start();
 
 $searchFormToken = mt_rand() . mt_rand() . mt_rand();
-
+// Set SESSION Token to use for form security
 $_SESSION['searchValueFormToken'] = $searchFormToken;
+// Check current role and redirect appropriately.
 if ($_SESSION['role'] == 'USER') {
     header("location: ../dashboard/?err=$err");
 } elseif ($_SESSION['role'] == 'ADMIN') {
     include("../classes/user.php");
     $db = new User();
+    // Get all available books
     $books = $db->getAllBooks();
+    // Get book of the week
     $bookOfTheWeek = $db->getHighestReadBooks();
 } else {
+    // Logout user if role cannot be verified
     $err = "Please login again to continue";
     session_destroy();
     header("location: ../login/?err=$err");
@@ -126,6 +130,7 @@ if ($_SESSION['role'] == 'USER') {
                     <!-- TODO: Loop here -->
                     <?php
                 if (isset($books)) {
+                    // If Book is found on the database, show books
                     foreach ($books as $book) {
 
                 ?>
@@ -152,7 +157,9 @@ if ($_SESSION['role'] == 'USER') {
                             <?php
                                 // Get book activities
                                 $bookActivities = $db->getBookActivities($bookId);
+                                // Get starred books
                                 $bookStars = $db->getBookStarCount($bookId);
+                                // Get book likes
                                 $bookLikes = $db->getLikeCount($bookId);
 
                                 ?>
@@ -169,6 +176,7 @@ if ($_SESSION['role'] == 'USER') {
                                     <i class="fa fa-thumbs-up"></i></a> &nbsp;
                                 <a href="#">
                                     <?php
+                                        // If book has any star, print total number of stars, else print '0'
                                         if ($bookStars) {
                                             echo number_format(count($bookStars['user_id']));
                                         } else {

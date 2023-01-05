@@ -22,8 +22,8 @@ if (isset($_POST['uploadBookForm']) && $_POST['uploadBookForm'] == $_SESSION['up
     $coverExtension = pathinfo($bookCover, PATHINFO_EXTENSION);
 
 
-    
-    
+
+
     // Check if extension is PDF
     if (trim($fileExtension) != 'pdf') {
         $err = "Unsupported Book File Extension, only PDF file can be uploaded";
@@ -37,14 +37,14 @@ if (isset($_POST['uploadBookForm']) && $_POST['uploadBookForm'] == $_SESSION['up
         exit();
     }
 
-    // New Book file name
+    // Generate New Book file name for security
     $bookCover = $_FILES['bookCover']['name'];
     $fileNewName = md5(date('Y-M-D h:i:s') . $_SESSION['userID']);
     $fileNewName = $fileNewName . '.pdf';
 
     // File paths for upload
     $book_file_path = '../upload/books/' . $bookCategory . '/' . $fileNewName;
-    if(!is_dir('../upload/books/' . $bookCategory . '/')) {
+    if (!is_dir('../upload/books/' . $bookCategory . '/')) {
         mkdir('../upload/books/' . $bookCategory . '/');
     }
     $cover_file_path = '../upload/cover/' . $_FILES['bookCover']['name'];
@@ -59,6 +59,7 @@ if (isset($_POST['uploadBookForm']) && $_POST['uploadBookForm'] == $_SESSION['up
         $bookCover = md5(date('Y-M-D h:i:s') . $_SESSION['userID']) . '.' . $coverExtension;
         $cover_file_path = '../cover/' . $bookCover;
     }
+    // Check file size, ensure it doesn't exceed 200mb
     if ($_FILES["bookFile"]["size"] > 20000000) {
         $err =  "The PDF file you're trying to upload is larger than 200mb.";
         header("location: ../upload/?err=$err");
@@ -72,28 +73,28 @@ if (isset($_POST['uploadBookForm']) && $_POST['uploadBookForm'] == $_SESSION['up
     }
     // echo $_FILES['bookFile']['name'];
     // exit();
-    if(move_uploaded_file($_FILES['bookFile']['tmp_name'], $book_file_path)){
+    if (move_uploaded_file($_FILES['bookFile']['tmp_name'], $book_file_path)) {
         move_uploaded_file($_FILES['bookCover']['tmp_name'], $cover_file_path);
         $bookPrice = 0;
         $db->uploadBookDetails($bookCategory, $bookAuthor, $bookTitle, $bookPrice, $pubDate, $_SESSION['userID'], $bookSummary, $_FILES['bookFile']['name'], $fileNewName, $bookCover);
         $msg = "Book Uploaded, you can find your book in your store";
         header("location: ../upload/?msg=$msg");
         exit();
-    }else{
+    } else {
         $msg = "Your book could not be uploaded, please try again.";
         $db->Log_DBerror_msg($e->getMessage(), $e->getCode(), $e->getFile(), $e->getLine());
         header("location: ../upload/?err=$msg");
         exit();
     }
-    exit();
-    // Upload Files
-    // Save Book information
 } elseif (isset($_POST['searchBoxForm']) && ($_POST['searchBoxForm'] == $_SESSION['searchValueFormToken'])) {
-    include("../classes/user.php");
 
+    // Upload Files
+    include("../classes/user.php");
+    
     $searchItem = htmlentities(trim($_POST['searchValue']));
     $db = new user();
-
+    
+    // Save Book information
     $books = $db->searchBooks($searchItem);
     if ($books) {
         echo var_dump($books);

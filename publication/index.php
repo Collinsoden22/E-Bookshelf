@@ -2,9 +2,11 @@
 
 session_start();
 
+// Set SESSION Token for form security
 $searchFormToken = mt_rand() . mt_rand() . mt_rand();
 
 $_SESSION['searchValueFormToken'] = $searchFormToken;
+// Check user role and redirect appropriately
 if ($_SESSION['role'] == 'USER') {
     header("location: ../dashboard/?err=$err");
 } elseif ($_SESSION['role'] == 'ADMIN') {
@@ -13,6 +15,7 @@ if ($_SESSION['role'] == 'USER') {
     $books = $db->getMyBooks($_SESSION['userID']);
     $bookOfTheWeek = $db->getHighestReadBooks();
 } else {
+    // Logout if user role cannot be ascertained
     $err = "Please login again to continue";
     session_destroy();
     header("location: ../login/?err=$err");
@@ -150,7 +153,9 @@ if ($_SESSION['role'] == 'USER') {
                             <?php
                                 // Get book activities
                                 $bookActivities = $db->getBookActivities($bookId);
+                                // Get Stars count for book
                                 $bookStars = $db->getBookStarCount($bookId);
+                                // Get all book likes
                                 $bookLikes = $db->getLikeCount($bookId);
 
                                 ?>

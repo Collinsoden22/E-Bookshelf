@@ -94,7 +94,10 @@ function triggerDownload(bookId, bookLink) {
         cache: false,
         success: function (data) {
             // Download Book
-            window.open(bookLink, '_blank')
+            // Open on current tab
+            window.open(bookLink)
+            // Open in a new tab
+            // window.open(bookLink, '_blank')
             console.log("Book Download updated");
         },
         failure: function () {

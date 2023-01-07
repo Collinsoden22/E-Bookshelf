@@ -141,7 +141,7 @@
                             <div class="grow icon-1">
                                 <img src="assets/img/Ifelolar.jpg" alt="" class="circular" width="200px" height="200px">
                             </div>
-                            <h3 class="mt-4">Ifelolar Benjamin</h3>
+                            <h3 class="mt-4">Christiana Benjamin</h3>
                             <h5>(Frontend Engineer)</h5>
                             <p>ALX Software Engineer <br>(Cohort-6 2022)</p>
                             <p class="social">

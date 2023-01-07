@@ -90,6 +90,7 @@ if ($_SESSION['role'] == 'USER') {
                 </div>
                 <div class="form-group col-md-12 mt-3">
                     <input type="hidden" name="searchValue" id="searchFormToken" value="<?= $searchFormToken ?>">
+                    <input type="hidden" name="userID" id="userID" value="<?= $_SESSION['userID'] ?>">
                     <div class="col-md-3 float-right mr-2">
                         <select type="text" class="form-control" onchange="loadBookCategory(this);">
                             <option value="0" class="text-center">-- Select category --</option>

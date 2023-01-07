@@ -43,7 +43,7 @@ function loadBookCategory(e) {
     var displayPage = document.getElementById("bookPage");
     var searchFormToken = document.getElementById("searchFormToken").value;
     var formData = 'searchValue=' + e.value + '&categoryBoxForm=' + searchFormToken;
-    console.log(formData);
+
     $.ajax({
         type: 'POST',
         url: '../process/index.php',
@@ -64,15 +64,18 @@ function countViews(bookId, bookLink) {
     var userID = document.getElementById("userID").value;
 
     var formData = 'userID=' + userID + '&bookID=' + bookId + '&countViewsForm=' + searchFormToken;
-    // console.log(formData);
+
     $.ajax({
         type: 'POST',
         url: '../process/index.php',
         data: formData,
         cache: false,
         success: function (data) {
+
             // Reload Page
             console.log('Success');
+            // Open Book
+            window.open(bookLink)
             // Log update
         },
         failure: function () {
@@ -85,7 +88,6 @@ function countViews(bookId, bookLink) {
 function triggerDownload(bookId, bookLink) {
     var searchFormToken = document.getElementById("searchFormToken").value;
     var userID = document.getElementById("userID").value;
-    console.log(searchFormToken);
 
     var formData = 'userID=' + userID + '&bookID=' + bookId + '&downloadTriggerForm=' + searchFormToken;
 
@@ -96,12 +98,11 @@ function triggerDownload(bookId, bookLink) {
         data: formData,
         cache: false,
         success: function (data) {
-            // Download Book
-            // Open on current tab
+            // Open PDF File for user to download
             window.open(bookLink)
-            // Open in a new tab
-            // window.open(bookLink, '_blank')
-            console.log("Book Download updated");
+            // Download Book
+            // bookLink.download = bookTitle + '.pdf';
+            console.log("Book Downloaded");
         },
         failure: function () {
             console.log("Network Error: Could not complete request");

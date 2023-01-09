@@ -6,11 +6,11 @@
 
 <h3 align="center">E-Bookshelf</h3>
 
-<div align="center">
+
   [![Status](https://img.shields.io/badge/status-active-success.svg)](#)
   [![GitHub Issues](https://img.shields.io/github/issues/Collinsoden22/E-Bookshelf.svg)](https://github.com/Collinsoden22/E-Bookshelf/issues)
   [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/collinsoden22/E-Bookshelf.svg)](https://github.com/collinsoden22/E-Bookshelf/pulls)
-</div>
+
 
 <p align="center"> 
     E-Bookshelf (Electronic Bookshelf) is a digital library where readers can find books to read. With thousands of free books, you can easily explore new authors and genre on any device anytime and anywhere. Search through the categories to find the perfect Ebook for you.

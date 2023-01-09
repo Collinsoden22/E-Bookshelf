@@ -2,7 +2,7 @@ function searchBook(e) {
     var searchFormToken = document.getElementById("searchFormToken").value;
     var displayPage = document.getElementById("bookPage");
     var formData = 'searchValue=' + e.value + '&searchBoxForm=' + searchFormToken;
-    console.log(formData)
+
     // displayPage.innerText = '<div class="col-md-8"> <div class="step"><p class="text-center"> Searching... </p></div></div>';
     $.ajax({
         type: 'POST',
@@ -10,6 +10,8 @@ function searchBook(e) {
         data: formData,
         cache: false,
         success: function (data) {
+            // console.log(data);
+
             if (data != '') {
                 for (i = 0; i < data.length; i++) {
                     var booksResult = "<div class='col-md-4'>" +
@@ -27,7 +29,7 @@ function searchBook(e) {
                         "<p><a href='#'> 5 <i class='fa fa-star'> </i></a> & nbsp; <p><a href='#'> 5 <i class='fa fa-download'> </i></a> & nbsp; " +
                         "</div></div>";
                     // displayPage.innerText += booksResult;
-                    // console.log(data);
+                    // console.log(booksResult);
                 }
             } else {
                 console.log("No book found with this keyword.");

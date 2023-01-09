@@ -445,8 +445,6 @@ class User extends Connect
             $q = $this->connect->prepare($sql);
             //execute query
             $q->execute(array(':bookTitle' => $title, ':bookAuthor' => $author, ':pubDate' => $dateofPub, ':desc' => $summary, ':postedBy' => $postedBy, ':fileName' => $oldName, ':newName' => $newName, ':bookCover' => $cover, ':price' => $bookPrice, ':bookCategory' => $category));
-            // Get username
-            $userEmail = $q->fetch();
         } catch (PDOException $e) {
             $this->Log_DBerror_msg($e->getMessage(), $e->getCode(), $e->getFile(), $e->getLine());
             session_unset();
@@ -454,9 +452,6 @@ class User extends Connect
             $err = 'An error might have occurred in the System';
             header("../login/?err=$err");
             exit();
-        }
-        if ($userEmail) {
-            return true;
         }
     }
 }

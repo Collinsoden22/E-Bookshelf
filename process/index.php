@@ -22,8 +22,6 @@ if (isset($_POST['uploadBookForm']) && $_POST['uploadBookForm'] == $_SESSION['up
     $coverExtension = pathinfo($bookCover, PATHINFO_EXTENSION);
 
 
-
-
     // Check if extension is PDF
     if (trim($fileExtension) != 'pdf') {
         $err = "Unsupported Book File Extension, only PDF file can be uploaded";
@@ -121,7 +119,7 @@ if (isset($_POST['uploadBookForm']) && $_POST['uploadBookForm'] == $_SESSION['up
     $db = new user();
 
     $bookActivities = $db->getBookActivities($bookID);
-    
+
     if (empty($bookActivities['times_viewed']) && empty($bookActivities['times_downloaded'])) {
         $books = $db->registerDownloadClick($bookID, 1);
     } else {

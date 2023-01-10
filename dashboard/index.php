@@ -124,7 +124,8 @@ if ($_SESSION['role'] == 'ADMIN') {
                     <div class="col-md-4">
                         <div class="step">
                             <?php
-                                $bookId = $book['id'];
+                                $
+                                bookId = $book['id'];
                                 $bookLink = "../upload/books/" . $book['category'] . "/" . $book['new_name'];
                                 //Link below for free books, books with price > 0 should have a link to payment 
                                 ?>
@@ -150,8 +151,7 @@ if ($_SESSION['role'] == 'ADMIN') {
                                 $bookLikes = $db->getLikeCount($bookId);
 
                                 ?>
-                            <p>
-                                <a href="#book_<?= $bookId ?>" title="Views"><?= number_format($bookActivities['times_viewed']); ?> <i class="fa fa-eye"></i></a> &nbsp;
+                            <p><a href="#book_<?= $bookId ?>" title="Views"><?= number_format($bookActivities['times_viewed']); ?> <i class="fa fa-eye"></i></a> &nbsp;
                                 <a href="#book_<?= $bookId ?>" title="Times Read"> <?= number_format($bookActivities['times_read']); ?> <i class="fa fa-book"></i></a>&nbsp;
                                 <a href="#book_<?= $bookId ?>" title="Likes">
                                     <?php

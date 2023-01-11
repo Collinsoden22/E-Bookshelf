@@ -113,7 +113,7 @@ if (isset($_POST['uploadBookForm']) && $_POST['uploadBookForm'] == $_SESSION['up
     if ($isBookLiked) {
         // Unlike Book
         $db->unlikeBook($_SESSION['userID'], $bookID);
-    }else{
+    } else {
         $db->likeBook($_SESSION['userID'], $bookID);
     }
 

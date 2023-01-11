@@ -60,6 +60,25 @@ function loadBookCategory(e) {
     });
 }
 
+function likeBook(e) {
+    var searchFormToken = document.getElementById("searchFormToken").value;
+    bookID = e.value;
+    var formData = 'bookID=' + bookID + '&likeBookForm=' + searchFormToken;
+
+    $.ajax({
+        type: 'POST',
+        url: '../process/index.php',
+        data: formData,
+        cache: false,
+        success: function (data) {
+            console.log("Book liked");
+        },
+        failure: function () {
+            console.log("Could not complete request");
+        }
+    });
+}
+
 function countViews(bookId, bookLink) {
     // Update number of views
     var searchFormToken = document.getElementById("searchFormToken").value;

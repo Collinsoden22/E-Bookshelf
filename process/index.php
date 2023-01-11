@@ -99,6 +99,26 @@ if (isset($_POST['uploadBookForm']) && $_POST['uploadBookForm'] == $_SESSION['up
     } else {
         echo 'Book not found';
     }
+} elseif (isset($_POST['likeBookForm']) && ($_POST['likeBookForm'] == $_SESSION['searchValueFormToken'])) {
+
+    // Upload Files
+    include("../classes/user.php");
+
+    $bookID = htmlentities(trim($_POST['bookID']));
+    $db = new user();
+
+    // Save Book information
+    $isBookLiked = $db->checkIfBookIsAlreadyLiked($_SESSION['userID'], $bookID);
+
+    if ($isBookLiked) {
+        // Unlike Book
+        $db->unlikeBook($_SESSION['userID'], $bookID)
+    }else{
+        $db->likeBook($_SESSION['userID'], $bookID)
+    }
+
+    echo true;
+    exit();
 } elseif (isset($_POST['categoryBoxForm']) && ($_POST['categoryBoxForm'] == $_SESSION['searchValueFormToken'])) {
     include("../classes/user.php");
 

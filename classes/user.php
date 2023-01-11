@@ -447,11 +447,63 @@ class User extends Connect
             $q->execute(array(':bookTitle' => $title, ':bookAuthor' => $author, ':pubDate' => $dateofPub, ':desc' => $summary, ':postedBy' => $postedBy, ':fileName' => $oldName, ':newName' => $newName, ':bookCover' => $cover, ':price' => $bookPrice, ':bookCategory' => $category));
         } catch (PDOException $e) {
             $this->Log_DBerror_msg($e->getMessage(), $e->getCode(), $e->getFile(), $e->getLine());
-            session_unset();
-            session_destroy();
             $err = 'An error might have occurred in the System';
-            header("../login/?err=$err");
+            header("../upload/?err=$err");
             exit();
         }
+    }
+    public function checkIfBookIsAlreadyLiked($username, $bookID)
+    {
+        try {
+            $sql = "SELECT book_id FROM liked_books WHERE user_id =: userID AND book_id =: bookID";
+            //prepare query
+            $q = $this->connect->prepare($sql);
+            //execute query
+            $q->execute(array(':userID' => $username, ':bookID' => $bookID));
+            // Fetch Data
+            $bookLiked = $q->fetch();
+        } catch (PDOException $e) {
+            $this->Log_DBerror_msg($e->getMessage(), $e->getCode(), $e->getFile(), $e->getLine());
+            $err = 'An error might have occurred in the System';
+            header("../dashboard/?err=$err");
+            exit();
+        }
+        if (isset($bookLiked)) {
+            return true;
+        }
+    }
+
+    public function unlikeBook($username, $bookID)
+    {
+        try {
+            $sql = "DELETE FROM liked_books WHERE user_id =: userID AND book_id =: bookID";
+            //prepare query
+            $q = $this->connect->prepare($sql);
+            //execute query
+            $q->execute(array(':userID' => $username, ':bookID' => $bookID));
+        } catch (PDOException $e) {
+            $this->Log_DBerror_msg($e->getMessage(), $e->getCode(), $e->getFile(), $e->getLine());
+            $err = 'An error might have occurred in the System';
+            header("../dashboard/?err=$err");
+            exit();
+        }
+        return true;
+    }
+
+    public function likeBook($username, $bookID)
+    {
+        try {
+            $sql = "INSERT INTO liked_books (user_id,book_id) VALUES(:userID, :bookID)";
+            //prepare query
+            $q = $this->connect->prepare($sql);
+            //execute query
+            $q->execute(array(':userID' => $username, ':bookID' => $bookID));
+        } catch (PDOException $e) {
+            $this->Log_DBerror_msg($e->getMessage(), $e->getCode(), $e->getFile(), $e->getLine());
+            $err = 'An error might have occurred in the System';
+            header("../dashboard/?err=$err");
+            exit();
+        }
+        return true;    
     }
 }

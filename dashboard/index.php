@@ -153,7 +153,7 @@ if ($_SESSION['role'] == 'ADMIN') {
                                 ?>
                             <p><a href="#book_<?= $bookId ?>" title="Views"><?= number_format($bookActivities['times_viewed']); ?> <i class="fa fa-eye"></i></a> &nbsp;
                                 <a href="#book_<?= $bookId ?>" title="Times Read"> <?= number_format($bookActivities['times_read']); ?> <i class="fa fa-book"></i></a>&nbsp;
-                                <a href="#book_<?= $bookId ?>" title="Likes" onclick="likeBook(this);" value="<?= $bookId ?>">
+                                <a href="#book_<?= $bookId ?>" title="Likes" onclick="likeBook(this)" value="<?= $bookId ?>">
                                     <?php
                                         if ($bookLikes) {
                                             echo number_format(count($bookLikes['user_id']));

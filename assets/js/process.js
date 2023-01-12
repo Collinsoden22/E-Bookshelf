@@ -64,7 +64,7 @@ function likeBook(e) {
     var searchFormToken = document.getElementById("searchFormToken").value;
     bookID = e.value;
     var formData = 'bookID=' + bookID + '&likeBookForm=' + searchFormToken;
-
+    console.log(formData)
     $.ajax({
         type: 'POST',
         url: '../process/index.php',

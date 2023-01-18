@@ -124,8 +124,7 @@ if ($_SESSION['role'] == 'ADMIN') {
                     <div class="col-md-4">
                         <div class="step">
                             <?php
-                                $
-                                bookId = $book['id'];
+                                $$bookId = $book['id'];
                                 $bookLink = "../upload/books/" . $book['category'] . "/" . $book['new_name'];
                                 //Link below for free books, books with price > 0 should have a link to payment 
                                 ?>

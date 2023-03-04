@@ -30,7 +30,7 @@
 
 ## 🧐 About <a name = "about"></a>
 
-E-Bookshelf (Electronic Bookshelf) is a digital library where readers can find books to read. With thousands of free books, you can easily explore new authors and genre on any device anytime and anywhere. Search through the categories to find the perfect Ebook for you..
+E-Bookshelf (Electronic Bookshelf) is a digital library where readers can find books to read. With thousands of free books, you can easily explore new authors and genre on any device anytime and anywhere. Search through the categories and Genre to find the perfect Ebook for you..
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
